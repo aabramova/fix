@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<link href="css/default.css" rel="stylesheet" type="text/css" />
+	<title>Fix test application</title>
+</h:head>
+
+<f:view>
+
+	<h:body>
+		<img src="images/duke.jpg" class="floatLeft" height="82" width="96" />
+		<h1>Java application with directory information</h1>
+		<br clear="all"></br>
+		<table width="100%">
+			<tr>
+				<td style="background-color: #200070" height="5"></td>
+			</tr>
+		</table>
+		<br clear="all"></br>
+
+		<h:form>
+			<a4j:queue ignoreDupResponses="true" />
+			<h:panelGrid styleClass="floatLeft">
+				<rich:accordion style="width: 256px;" styleClass="floatLeft">
+					<rich:accordionItem header="Change directiry">
+						<h:outputText
+							value="To make operation with file or folder click to 'Change directory' and write a path to file or folder ."
+							style="font: menu;" />
+					</rich:accordionItem>
+					<rich:accordionItem header="Delete folder/file">
+						<h:outputText
+							value="To delete folder or file change directory and click 'Delete folder/file'"
+							style="font: menu;" />
+					</rich:accordionItem>
+					<rich:accordionItem header="Change folder name">
+						<h:outputText
+							value="To change folder name change directory, write new name and click 'Change folder name'"
+							style="font: menu;" />
+					</rich:accordionItem>
+					<rich:accordionItem header="Add folder/file">
+						<h:outputText
+							value="To Add folder/file change directory, write folder name/path to file and click 'Add folder/file'"
+							style="font: menu;" />
+					</rich:accordionItem>
+				</rich:accordion>
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<label>Directory:</label>
+				<h:outputText value="#{applicationTreeHandler.directory}">
+				</h:outputText>
+				<h:commandButton value="Change directory" style="width: 10em"
+					action="index">
+					<rich:componentControl target="popup1" operation="show" />
+				</h:commandButton>
+				<h:commandButton value="Delete folder/file" style="width: 10em"
+					action="#{applicationTreeHandler.deleteFolderOrFile}">
+				</h:commandButton>
+				<h:inputText value="#{applicationTreeHandler.newFolderName}"
+					disabled="#{applicationTreeHandler.directoryFile}">
+				</h:inputText>
+				<h:commandButton value="Change folder name" style="width: 10em"
+					action="#{applicationTreeHandler.changeFolderName}"
+					disabled="#{applicationTreeHandler.directoryFile}">
+				</h:commandButton>
+				<h:inputText value="#{applicationTreeHandler.newFile}"
+					disabled="#{applicationTreeHandler.directoryFile}">
+				</h:inputText>
+				<h:commandButton value="Add file" style="width: 10em"
+					action="#{applicationTreeHandler.addFile}"
+					disabled="#{applicationTreeHandler.directoryFile}">
+				</h:commandButton>
+				<h:inputText value="#{applicationTreeHandler.newFolder}"
+					disabled="#{applicationTreeHandler.directoryFile}">
+				</h:inputText>
+				<h:commandButton value="Add folder" style="width: 10em"
+					action="#{applicationTreeHandler.addNewFolder}"
+					disabled="#{applicationTreeHandler.directoryFile}">
+				</h:commandButton>
+				<label>Folders tree:</label>
+				<rich:tree id="foldersTree"
+					value="#{applicationTreeHandler.stationNodes}" var="station"
+					toggleType="client" nodeType="#{station.type}">
+					<rich:treeNode type="directory"
+						iconExpanded="/images/foldericon.jpg"
+						iconCollapsed="/images/foldericon.jpg">
+						<h:outputText value="#{station.name}" />
+					</rich:treeNode>
+					<rich:treeNode type="file" iconExpanded="/images/fileicon.jpeg"
+						iconCollapsed="/images/fileicon.jpeg">
+						<h:outputText value="#{station.name}" />
+					</rich:treeNode>
+				</rich:tree>
+			</h:panelGrid>
+			<rich:popupPanel id="popup1" modal="false" autosized="true"
+				resizeable="false">
+				<f:facet name="header">
+					<h:outputText value="Change directory" />
+				</f:facet>
+				<f:facet name="controls">
+					<h:outputLink value="#"
+						onclick="#{rich:component('popup1')}.hide(); return false;">
+X
+						</h:outputLink>
+				</f:facet>
+				<h:form>
+					<p>Write another directory path to see and change it's content.</p>
+					<h:inputText value="#{applicationTreeHandler.directory}">
+					</h:inputText>
+					<h:commandButton value="Change directory" style="width: 10em"
+						action="index" onclick="#{rich:component('popup1')}.hide()">
+					</h:commandButton>
+				</h:form>
+			</rich:popupPanel>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
+
