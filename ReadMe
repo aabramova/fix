@@ -1,0 +1,14 @@
+  This project uses several technologies: Java, Spring, Maven (to notice dependencies, make war file and deplloy it
+in Tomcat), Tomcat, JSF, RichFaces (to show folder tree), CSS.
+  To try this application you should make 2 steps:
+    1. In your computer create new folder: C:\newFolder. This folder would be your starting directory, in the application
+you have an opportunity to change directory.
+    2. Download fileserver.war in the target folder and deploy it in Tomcat. You can see application 
+by URL: http://localhost:8080/fileserver. In the left side you can see instruction how to use application.
+  This aplication has to be developed by several reasons:
+    1. Add logs to manage application;
+    2. Make an opportunity to not adding 'C:\newFolder'. For example, make root directory like user root directory or
+another issue.
+    3. Apllication build tree very slow if a directory has a lot of folders and files (ex. directory = C:).
+    4. Add warning messages or popup panels when user want to delete file/filder or another one.
+    5. Add warning message when user change directory to non existing directory or add non existing file.
